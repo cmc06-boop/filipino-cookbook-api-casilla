@@ -57,7 +57,7 @@ The Filipino Cookbook API is a RESTful API developed using PHP, Slim Framework, 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/filipino-cookbook-api-casilla.git
+git clone https://github.com/cmc06-boop/filipino-cookbook-api-casilla.git
 ```
 
 ### 2. Open the project folder
@@ -117,6 +117,10 @@ http://127.0.0.1:8000/
 ```text
 filipino_cookbook_api
 ```
+### SQL File
+```text
+filipino_cookbook_api.sql
+```
 
 ### Main Tables
 
@@ -129,14 +133,8 @@ filipino_cookbook_api
 ### Relationship
 
 ```
-categories
-     │
-     │
-    foods
-   /     \
-origins  food_ingredients
-             │
-        ingredients
+categories -> foods <- origins 
+fooods -> food_ingredients <- ingredients
 ```
 ## Base URL
 ```text
@@ -144,6 +142,46 @@ http://127.0.0.1:8000/
 ```
 
 ## Authentication Instructions
+- All endpoints under `/api` require Bearer token authentication.
+- The API token is stored in the local `config.php` file.
+- To access the secured endpoints, include the following request headers:
+
+```http
+Authorization: Bearer YOUR_ACCESS_TOKEN
+```
+- For POST requests, also include:
+```http
+Content-Type: application/json
+```
+
+### Secured Endpoints
+
+- GET /api/foods
+- GET /api/foods/{id}
+- GET /api/foods/search/{name}
+- GET /api/categories
+- GET /api/categories/{id}/foods
+- GET /api/categories/food-counts
+- GET /api/ingredients
+- POST /api/foods
+
+The welcome route `GET /` is publicly accessible.
+
+### Invalid Authentication Response
+
+```json
+{
+    "status": "error",
+    "message": "Unauthorized. Provide a valid Bearer token."
+}
+```
+
+HTTP Status Code:
+
+```text
+401 Unauthorized
+```
+
 
 ## Endpoint Documentation
 
@@ -213,7 +251,11 @@ The enhancements were implemented to improve the functionality and reliability o
 
 ## Developer Information
  **Name:** Cherry Lyn M. Casilla
+
  **Course and Section:** BS Information Technology – [4B]
+
  **GitHub Username:** cmc06-boop
+
  **Repository:** https://github.com/cmc06-boop/filipino-cookbook-api-casilla
+
  **Date Completed:** July, 2026
