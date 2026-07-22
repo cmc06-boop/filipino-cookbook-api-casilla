@@ -1,3 +1,165 @@
+# Filipino Cookbook API
+
+## API Description 
+The Filipino Cookbook API is a RESTful API developed using PHP, Slim Framework, and MySQL. It provides information about Filipino foods, including their categories, origins, ingredients, and cooking instructions. The API returns data in JSON format and can be used by developers or students to build applications that consume Filipino food data.
+
+### Purpose of API
+- Provide Filipino food information through a RESTful API.
+- Allow developers to access food, category, origin, and ingredient data.
+- Demonstrate API development using PHP, Slim Framework, and MySQL.
+
+### Type of Information Provided
+- Filipino foods
+- Food categories
+- Food origins
+- Food ingredients
+- Cooking instructions
+
+### Intended Users
+- Students
+- Developers
+- Client applications that consume REST APIs
+
+### Main Functions of The API
+- Retrieve all Filipino foods
+- Retrieve a specific food
+- Search foods by name
+- Retrieve categories
+- Retrieve ingredients
+- Return data in JSON format
+- Add a new food using a protected endpoint
+
+## Features
+- Retrieve all foods
+- Retrieve a specific food
+- Search food by name
+- Retrieve categories
+- Retrieve ingredients
+- Add new food (Protected)
+- JSON responses
+- Input validation
+- Bearer token authentication
+
+## Technologies Used
+- PHP
+- Slim Framework 
+- MySQL
+- Composer
+- Apache
+- XAMPP
+- JSON
+- Thunder Client / Postman
+- Git
+- GitHub
+
+## Installation Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/filipino-cookbook-api-casilla.git
+```
+
+### 2. Open the project folder
+
+```bash
+cd filipino-cookbook-api-casilla
+```
+
+### 3. Install the dependencies
+
+```bash
+composer install
+```
+
+### 4. Create the database
+
+Create a database named:
+
+```text
+filipino_cookbook_api
+```
+
+Then import the SQL file included in the repository.
+
+### 5. Configure the database
+
+Copy:
+
+```text
+config.example.php
+```
+
+Rename it to:
+
+```text
+config.php
+```
+
+Update the database credentials according to your local environment.
+
+### 6. Start Apache and MySQL
+
+Start both services using the XAMPP Control Panel.
+
+### 7. Run the API
+
+Open:
+
+```text
+http://127.0.0.1:8000/
+```
+
+## Database Setup
+**Database Name**
+
+```text
+filipino_cookbook_api
+```
+
+**Main Tables**
+
+- foods
+- categories
+- origins
+- ingredients
+- food_ingredients
+
+**Relationship**
+
+```
+categories
+     │
+     │
+    foods
+   /     \
+origins  food_ingredients
+             │
+        ingredients
+```
+## Base URL
+```text
+http://127.0.0.1:8000/
+```
+
+## Authentication Instructions
+
+## Endpoint Documentation
+
+## HTTP Status Code
+
+## Testing Evidence
+
+## DeveloperInformation
+**Student Name:** Cherry Lyn M. Casilla
+
+**Course and Section:** Bachelor of Science in Information Technology (BSIT)
+
+**GitHub Username:** YOUR_GITHUB_USERNAME
+
+**Repository Link:** https://github.com/YOUR_USERNAME/filipino-cookbook-api-casilla
+
+**Date Completed:** July 2026
 # Optional API Enhancements
 
 ## Description of the Enhancement
@@ -21,42 +183,27 @@ The enhancements were implemented to improve the functionality and reliability o
   - Returns the total number of foods under each category.
 
 ## Security Features Implemented
-- Input Validation
-- Bearer token authorization for protected POST routes
-- `config.php` excluded from version control via `.gitignore`
 
-## Setup and Authorization
-1. Copy `config.example.php` to `config.php`.
-2. Fill in your database credentials.
-3. Keep `config.php` local and do not commit it to GitHub.
-4. For protected POST requests, use the header:
-
-```http
-Authorization: Bearer dmmmsu-cookbook-token-2026
-```
+- Input validation
+ - Proper error handling for invalid or missing parameters
 
 ## Instructions for Testing the Enhancement
 
 ### Get Foods by Category
+
 1. Send a GET request to `/api/categories/{id}/foods`.
 2. Replace `{id}` with a valid category ID.
 3. Verify that the API returns all foods under the selected category.
 
 ### Get Number of Foods Under Each Category
+
 1. Send a GET request to `/api/categories/food-counts`.
 2. Verify that the API returns all categories with their corresponding number of foods.
-
-### Add New Food (Protected)
-1. Send a POST request to `/api/foods`.
-2. Include `Authorization: Bearer dmmmsu-cookbook-token-2026` in the request header.
-3. Send a valid JSON body with `food_name`, `category_id`, `origin_id`, `instructions`, and `ingredient_ids`.
-4. Verify the API returns `201 Created` for a successful addition.
 
 ### Input Validation
 1. Test using an invalid category ID.
 2. Test using missing or empty parameters.
-3. Verify that the API returns the appropriate HTTP status code and JSON error message.
-
+3. Verify that the API returns the appropriate HTTP status code and JSON error message.  
 
 ## Screenshots of Successful Testing
 
@@ -70,3 +217,5 @@ Authorization: Bearer dmmmsu-cookbook-token-2026
 
 ### Input Validation
 ![Validation Error](Screenshots/Validation%20Error.png)
+
+## Developer Information
