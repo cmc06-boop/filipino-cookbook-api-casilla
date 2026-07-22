@@ -212,8 +212,8 @@ The enhancements were implemented to improve the functionality and reliability o
 ![Validation Error](Screenshots/Validation%20Error.png)
 
 ## Developer Information
-- **Name:** Cherry Lyn M. Casilla
-- **Course and Section:** BS Information Technology – [4B]
-- **GitHub Username:** cmc06-boop
-- **Repository:** https://github.com/cmc06-boop/filipino-cookbook-api-casilla
-- **Date Completed:** July, 2026
+ **Name:** Cherry Lyn M. Casilla
+ **Course and Section:** BS Information Technology – [4B]
+ **GitHub Username:** cmc06-boop
+ **Repository:** https://github.com/cmc06-boop/filipino-cookbook-api-casilla
+ **Date Completed:** July, 2026
