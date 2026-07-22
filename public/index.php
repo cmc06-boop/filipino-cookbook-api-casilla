@@ -25,10 +25,7 @@ $app->addErrorMiddleware(false, true, true); // hindi ipinapakita ang detalyadon
 
 // DATABASE CONNECTION (PDO) PHP Data Objects
 // database credentials na ginagamit para makonect yung API sa MYsql na database.
-$host = 'localhost';
-$dbname = 'filipino_cookbook_api';
-$username = 'root';
-$password = '';
+require __DIR__ . '/../config.php';
 
 try {
     $pdo = new PDO(
@@ -51,6 +48,24 @@ $jsonResponse = function ($response, array $data, int $status = 200) {
     return $response
         ->withStatus($status)
         ->withHeader('Content-Type', 'application/json');
+};
+
+$validApiToken = $apiToken ?? '';
+
+$authMiddleware = function (Request $request, $handler) use ($jsonResponse, $validApiToken) {
+    $authorization = $request->getHeaderLine('Authorization');
+
+    if (!preg_match('/^Bearer\s+(.+)$/i', $authorization, $matches)
+        || $matches[1] !== $validApiToken
+    ) {
+        $response = new Response();
+        return $jsonResponse($response, [
+            'status' => 'error',
+            'message' => 'Unauthorized. Provide a valid Bearer token.',
+        ], 401);
+    }
+
+    return $handler->handle($request);
 };
 
 // 1: PUBLIC WELCOME ROUTE (GET /)
@@ -465,7 +480,7 @@ $app->group('/api', function ($group) use ($pdo, $jsonResponse, $getFoodIngredie
                 'message' => 'Failed to add food.',
             ], 500);
         }
-    });
+    })->add($authMiddleware);
 
 });
 

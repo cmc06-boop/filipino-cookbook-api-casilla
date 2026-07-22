@@ -22,7 +22,18 @@ The enhancements were implemented to improve the functionality and reliability o
 
 ## Security Features Implemented
 - Input Validation
- - Proper Error Handling for invalid or missing parameters.
+- Bearer token authorization for protected POST routes
+- `config.php` excluded from version control via `.gitignore`
+
+## Setup and Authorization
+1. Copy `config.example.php` to `config.php`.
+2. Fill in your database credentials.
+3. Keep `config.php` local and do not commit it to GitHub.
+4. For protected POST requests, use the header:
+
+```http
+Authorization: Bearer dmmmsu-cookbook-token-2026
+```
 
 ## Instructions for Testing the Enhancement
 
@@ -32,8 +43,14 @@ The enhancements were implemented to improve the functionality and reliability o
 3. Verify that the API returns all foods under the selected category.
 
 ### Get Number of Foods Under Each Category
-1. Send a GET request to `/api/categories/count`.
+1. Send a GET request to `/api/categories/food-counts`.
 2. Verify that the API returns all categories with their corresponding number of foods.
+
+### Add New Food (Protected)
+1. Send a POST request to `/api/foods`.
+2. Include `Authorization: Bearer dmmmsu-cookbook-token-2026` in the request header.
+3. Send a valid JSON body with `food_name`, `category_id`, `origin_id`, `instructions`, and `ingredient_ids`.
+4. Verify the API returns `201 Created` for a successful addition.
 
 ### Input Validation
 1. Test using an invalid category ID.
