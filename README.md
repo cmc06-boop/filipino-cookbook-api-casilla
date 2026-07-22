@@ -111,13 +111,14 @@ http://127.0.0.1:8000/
 ```
 
 ## Database Setup
-**Database Name**
+
+### Database Name
 
 ```text
 filipino_cookbook_api
 ```
 
-**Main Tables**
+### Main Tables
 
 - foods
 - categories
@@ -125,7 +126,7 @@ filipino_cookbook_api
 - ingredients
 - food_ingredients
 
-**Relationship**
+### Relationship
 
 ```
 categories
@@ -148,18 +149,10 @@ http://127.0.0.1:8000/
 
 ## HTTP Status Code
 
+
 ## Testing Evidence
 
-## DeveloperInformation
-**Student Name:** Cherry Lyn M. Casilla
 
-**Course and Section:** Bachelor of Science in Information Technology (BSIT)
-
-**GitHub Username:** YOUR_GITHUB_USERNAME
-
-**Repository Link:** https://github.com/YOUR_USERNAME/filipino-cookbook-api-casilla
-
-**Date Completed:** July 2026
 # Optional API Enhancements
 
 ## Description of the Enhancement
@@ -219,3 +212,8 @@ The enhancements were implemented to improve the functionality and reliability o
 ![Validation Error](Screenshots/Validation%20Error.png)
 
 ## Developer Information
+**Name:** Cherry Lyn M. Casilla
+**Course and Section:** BS Information Technology – [4B]
+**GitHub Username:** cmc06-boop
+**Repository:** https://github.com/cmc06-boop/filipino-cookbook-api-casilla
+**Date Completed:** July, 2026
