@@ -29,6 +29,7 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 - Return data in JSON format
 - Add a new food using a protected endpoint
 
+
 ## Features
 - Retrieve Filipino foods
 - View the details of a specific food
@@ -38,6 +39,7 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 - Add new food (Protected)
 - Authenticate request using a token format
 - Return information in JSON format
+
 
 ## Technologies Used
 - PHP
@@ -50,6 +52,7 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 - Thunder Client / Postman
 - Git
 - GitHub
+
 
 ## Installation Instructions
 
@@ -109,6 +112,7 @@ Open:
 http://127.0.0.1:8000/
 ```
 
+
 ## Database Setup
 
 ### Database Name
@@ -135,6 +139,7 @@ filipino_cookbook_api.sql
 categories -> foods <- origins 
 fooods -> food_ingredients <- ingredients
 ```
+
 ## Base URL
 ```text
 http://127.0.0.1:8000/
@@ -152,6 +157,7 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 ```http
 Content-Type: application/json
 ```
+
 
 ### Secured Endpoints
 
@@ -534,8 +540,9 @@ _Returned with HTTP status `201 Created`._
 
 _Returned with HTTP status `400` for validation errors (invalid/missing fields, non-existent category, origin, or ingredient IDs), or `500` if the food could not be saved due to a server/database error._
 
-## HTTP Status Code
 
+
+## HTTP Status Code
 
 **Success**
 - `200` – Request completed successfully
@@ -555,29 +562,39 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 ![Public Welcome Route](Screenshots/Public%20Welcome%20Route.png)
 *Public Welcome Route — `GET /` returns a welcome message without requiring authentication.*
 
+
 ![Get All Foods](Screenshots/Get%20All%20Foods.png)
 *Get All Foods — `GET /api/foods` returns all foods with their category, origin, and ingredients.*
+
 
 ![Get Food By ID](Screenshots/Get%20Food%20By%20ID.png)
 *Get Food By ID — `GET /api/foods/{id}` returns a single food item and its details.*
 
+
 ![Search Food By Name](Screenshots/Search%20Food%20By%20Name.png)
 *Search Food By Name — `GET /api/foods/search/{name}` returns foods matching the given keyword.*
+
 
 ![Get All Categories](Screenshots/Get%20All%20Categories.png)
 *Get All Categories — `GET /api/categories` returns all available food categories.*
 
+
 ![Get All Ingredients](Screenshots/Get%20All%20Ingredients.png)
 *Get All Ingredients — `GET /api/ingredients` returns all ingredients stored in the database.*
+
 
 ![Add New Food](Screenshots/Add%20New%20Food.png)
 *Add New Food — `POST /api/foods` successfully adds a new food along with its ingredients.*
 
+
 ![Invalid Bearer Token](Screenshots/Invalid%20Bearer%20Token.png)
 *Invalid Bearer Token — Request with a missing or incorrect token returns a `401 Unauthorized` response.*
 
+
 ![Input Validation Error](Screenshots/Input%20Validation%20Error.png)
 *Input Validation Error — Request with invalid or missing fields returns a `400 Bad Request` response.*
+
+
 
 # Optional API Enhancements
 
