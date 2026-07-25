@@ -560,30 +560,39 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 ## Testing Evidence
 
 <p align="center"><em>Public Welcome Route — <code>GET /</code> returns a welcome message without requiring authentication.</em></p>
+
 ![Public Welcome Route](Screenshots/Public%20Welcome%20Route.png)
 
 <p align="center"><em>Get All Foods — <code>GET /api/foods</code> returns all foods with their category, origin, and ingredients.</em></p>
+
 ![Get All Foods](Screenshots/Get%20All%20Foods.png)
 
 <p align="center"><em>Get Food By ID — <code>GET /api/foods/{id}</code> returns a single food item and its details.</em></p>
+
 ![Get Food By ID](Screenshots/Get%20Food%20By%20ID.png)
 
 <p align="center"><em>Search Food By Name — <code>GET /api/foods/search/{name}</code> returns foods matching the given keyword.</em></p>
+
 ![Search Food By Name](Screenshots/Search%20Food%20By%20Name.png)
 
 <p align="center"><em>Get All Categories — <code>GET /api/categories</code> returns all available food categories.</em></p>
+
 ![Get All Categories](Screenshots/Get%20All%20Categories.png)
 
 <p align="center"><em>Get All Ingredients — <code>GET /api/ingredients</code> returns all ingredients stored in the database.</em></p>
+
 ![Get All Ingredients](Screenshots/Get%20All%20Ingredients.png)
 
 <p align="center"><em>Add New Food — <code>POST /api/foods</code> successfully adds a new food along with its ingredients.</em></p>
+
 ![Add New Food](Screenshots/Add%20New%20Food.png)
 
 <p align="center"><em>Invalid Bearer Token — Request with a missing or incorrect token returns a <code>401 Unauthorized</code> response.</em></p>
+
 ![Invalid Bearer Token](Screenshots/Invalid%20Bearer%20Token.png)
 
 <p align="center"><em>Input Validation Error — Request with invalid or missing fields returns a <code>400 Bad Request</code> response.</em></p>
+
 ![Input Validation Error](Screenshots/Input%20Validation%20Error.png)
 
 # Optional API Enhancements
