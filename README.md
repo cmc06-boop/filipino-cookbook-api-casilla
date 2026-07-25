@@ -535,23 +535,20 @@ _Returned with HTTP status `201 Created`._
 _Returned with HTTP status `400` for validation errors (invalid/missing fields, non-existent category, origin, or ingredient IDs), or `500` if the food could not be saved due to a server/database error._
 
 ## HTTP Status Code
-**200 OK**
-Request completed successfully (e.g. successfully fetched foods, categories, or ingredients).
 
-**201 Created**
-A new resource was successfully created (e.g. a new food was added via `POST /api/foods`).
 
-**400 Bad Request**
-The request contains an invalid or missing parameter (e.g. invalid `food_id`, empty search name, or missing required fields in the request body).
+**Success**
+- `200` – Request completed successfully
+- `201` – Resource successfully created
 
-**401 Unauthorized**
-The request is missing a valid Bearer token, or the token provided is incorrect.
+**Client Errors**
+- `400` – Invalid request or parameter
+- `401` – Missing or invalid authentication
+- `404` – Requested resource was not found
 
-**404 Not Found**
-The requested resource does not exist (e.g. food ID or category ID not found in the database).
+**Server Errors**
+- `500` – Internal server error
 
-**500 Internal Server Error**
-An unexpected server or database error occurred while processing the request (e.g. failed to save a new food).
 
 ## Testing Evidence
 
