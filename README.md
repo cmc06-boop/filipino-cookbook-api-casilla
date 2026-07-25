@@ -552,29 +552,6 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 
 ## Testing Evidence
 
-Ah gets ko, gagamitin natin yung eksaktong pangalan na parang sa picture mo (may spaces, capitalized). Eto yung updated Section 11:
-
-markdown
----
-
-## 11. Testing Evidence
-
-Include screenshots of successful endpoint requests and JSON responses, invalid or missing token requests, resource-not-found responses, and optional enhancements when applicable.
-
-### Successful Requests
-Ah, yan nga ang common issue — hindi maganda ang pag-parse ng Markdown pag may space sa loob ng image path kahit tama yung filename. Kailangan mong palitan ang mga space ng %20 (URL encoding) sa loob ng parentheses (), pero panatilihin mo yung normal na filename (may space) sa actual file mo sa folder.
-
-Eto yung fixed version:
-
-markdown
----
-
-## 11. Testing Evidence
-
-Include screenshots of successful endpoint requests and JSON responses, invalid or missing token requests, resource-not-found responses, and optional enhancements when applicable.
-
-### Successful Requests
-
 ![Public Welcome Route](Screenshots/Public%20Welcome%20Route.png)
 *Public Welcome Route — `GET /` returns a welcome message without requiring authentication.*
 
