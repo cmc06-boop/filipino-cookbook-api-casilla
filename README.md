@@ -563,7 +563,7 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 
 ![Public Welcome Route](Screenshots/Public%20Welcome%20Route.png)
 
-<p align="center"><em>Get All Foods — <code>GET /api/foods</code> returns all foods with their category, origin, and ingredients.</em></p>
+<p align="center"><em>Get All Foods — <code>GET /api/foods</code> returns all foods with their category, origin, ingredients, and instructions.</em></p>
 
 ![Get All Foods](Screenshots/Get%20All%20Foods.png)
 
