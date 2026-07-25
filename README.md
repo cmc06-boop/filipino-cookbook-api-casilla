@@ -553,6 +553,34 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 ## Testing Evidence
 
 
+![Public Welcome Route](images/public-welcome-route.png)
+*Public Welcome Route — `GET /` returns a welcome message without requiring authentication.*
+
+![Get All Foods](images/get-all-foods.png)
+*Get All Foods — `GET /api/foods` returns all foods with their category, origin, and ingredients.*
+
+![Get Food By ID](images/get-food-by-id.png)
+*Get Food By ID — `GET /api/foods/{id}` returns a single food item and its details.*
+
+![Search Food By Name](images/search-food-by-name.png)
+*Search Food By Name — `GET /api/foods/search/{name}` returns foods matching the given keyword.*
+
+![Get All Categories](images/get-all-categories.png)
+*Get All Categories — `GET /api/categories` returns all available food categories.*
+
+![Get All Ingredients](images/get-all-ingredients.png)
+*Get All Ingredients — `GET /api/ingredients` returns all ingredients stored in the database.*
+
+![Add New Food](images/add-new-food.png)
+*Add New Food — `POST /api/foods` successfully adds a new food along with its ingredients.*
+
+![Invalid Bearer Token](images/invalid-bearer-token.png)
+*Invalid Bearer Token — Request with a missing or incorrect token returns a `401 Unauthorized` response.*
+
+![Input Validation Error](images/input-validation-error.png)
+*Input Validation Error — Request with invalid or missing fields returns a `400 Bad Request` response.*
+
+
 # Optional API Enhancements
 
 ## Description of the Enhancement
