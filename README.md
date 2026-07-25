@@ -552,6 +552,16 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 
 ## Testing Evidence
 
+Ah gets ko, gagamitin natin yung eksaktong pangalan na parang sa picture mo (may spaces, capitalized). Eto yung updated Section 11:
+
+markdown
+---
+
+## 11. Testing Evidence
+
+Include screenshots of successful endpoint requests and JSON responses, invalid or missing token requests, resource-not-found responses, and optional enhancements when applicable.
+
+### Successful Requests
 
 ![Public Welcome Route](Screenshots/Public Welcome Route.png)
 *Public Welcome Route — `GET /` returns a welcome message without requiring authentication.*
@@ -559,7 +569,7 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 ![Get All Foods](Screenshots/Get All Foods.png)
 *Get All Foods — `GET /api/foods` returns all foods with their category, origin, and ingredients.*
 
-![Get Food By ID](Screenshots/Get Food By Id.png)
+![Get Food By ID](Screenshots/Get Food By ID.png)
 *Get Food By ID — `GET /api/foods/{id}` returns a single food item and its details.*
 
 ![Search Food By Name](Screenshots/Search Food By Name.png)
@@ -579,7 +589,6 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 
 ![Input Validation Error](Screenshots/Input Validation Error.png)
 *Input Validation Error — Request with invalid or missing fields returns a `400 Bad Request` response.*
-
 
 # Optional API Enhancements
 
