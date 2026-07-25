@@ -1,10 +1,10 @@
 # Filipino Cookbook API
 
 ## API Description 
-The Filipino Cookbook API is a RESTful API developed using PHP, Slim Framework, and MySQL. It provides information about Filipino foods, including their categories, origins, ingredients, and cooking instructions. The API returns data in JSON format and can be used by developers or students to build applications that consume Filipino food data.
+The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQL. It provides information about Filipino foods, including their categories, origins, ingredients, and cooking instructions. The API returns data in JSON format and can be used by developers or students to build applications that consume Filipino food data.
 
 ### Purpose of API
-- Provide Filipino food information through a RESTful API.
+- Provide Filipino food information through a API.
 - Allow developers to access food, category, origin, and ingredient data.
 - Demonstrate API development using PHP, Slim Framework, and MySQL.
 
@@ -18,11 +18,11 @@ The Filipino Cookbook API is a RESTful API developed using PHP, Slim Framework, 
 ### Intended Users
 - Students
 - Developers
-- Client applications that consume REST APIs
+- Client applications that consume APIs
 
 ### Main Functions of The API
 - Retrieve all Filipino foods
-- Retrieve a specific food
+- Retrieve a details of a specific food
 - Search foods by name
 - Retrieve categories
 - Retrieve ingredients
@@ -30,15 +30,14 @@ The Filipino Cookbook API is a RESTful API developed using PHP, Slim Framework, 
 - Add a new food using a protected endpoint
 
 ## Features
-- Retrieve all foods
-- Retrieve a specific food
-- Search food by name
-- Retrieve categories
+- Retrieve Filipino foods
+- View the details of a specific food
+- Retrieve food categories
+- Retrieve food origins
 - Retrieve ingredients
 - Add new food (Protected)
-- JSON responses
-- Input validation
-- Bearer token authentication
+- Authenticate request using a token format
+- Return information in JSON format
 
 ## Technologies Used
 - PHP
@@ -160,8 +159,6 @@ Content-Type: application/json
 - GET /api/foods/{id}
 - GET /api/foods/search/{name}
 - GET /api/categories
-- GET /api/categories/{id}/foods
-- GET /api/categories/food-counts
 - GET /api/ingredients
 - POST /api/foods
 
@@ -185,8 +182,376 @@ HTTP Status Code:
 
 ## Endpoint Documentation
 
-## HTTP Status Code
+### 1. Welcome Route
 
+**Endpoint:**
+
+```
+GET /
+```
+
+**Description:** Public route that returns a welcome message. Does not require authentication.
+
+**Example request:**
+
+```
+GET http://127.0.0.1:8000/
+```
+
+**Example successful response:**
+
+```json
+{
+    "message": "Welcome to the Filipino Cookbook API",
+    "note": "Use a valid bearer token in the Authorization header to access the secured endpoints."
+}
+```
+
+### 2. Get All Foods
+
+**Endpoint:**
+
+```
+GET /api/foods
+```
+
+**Description:** Returns all Filipino foods stored in the database, including each food's category, origin, and list of ingredients and instructions.
+
+**Required headers:**
+
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Accept: application/json
+```
+
+**Example request:**
+
+```
+GET http://127.0.0.1:8000/api/foods
+```
+
+**Example successful response:**
+
+```json
+{
+    "data": [
+        {
+            "food_id": 1,
+            "food_name": "Adobo",
+            "instructions": "Marinate the chicken or pork in soy sauce, vinegar, garlic, and pepper. Simmer until tender.",
+            "category_name": "Main Dish",
+            "origin_name": "Philippines",
+            "ingredients": [
+                "Bay Leaves",
+                "Chicken",
+                "Garlic",
+                "Soy Sauce",
+                "Vinegar"
+            ]
+        }
+    ]
+}
+```
+
+**Example error response:**
+
+```json
+{
+    "status": "error",
+    "message": "Unauthorized. Provide a valid Bearer token."
+}
+```
+
+### 3. Get a Single Food by ID
+
+**Endpoint:**
+
+```
+GET /api/foods/{id}
+```
+
+**Description:** Returns a single food item, including its category, origin, ingredients,and instructions, based on its `food_id`.
+
+**Required headers:**
+
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Accept: application/json
+```
+
+**Example request:**
+
+```
+GET http://127.0.0.1:8000/api/foods/1
+```
+
+**Example successful response:**
+
+```json
+{
+    "data": {
+        "food_id": 1,
+        "food_name": "Adobo",
+        "instructions": "Marinate the chicken or pork in soy sauce, vinegar, garlic, and pepper. Simmer until tender.",
+        "category_name": "Main Dish",
+        "origin_name": "Philippines",
+        "ingredients": [
+            "Bay Leaves",
+            "Chicken",
+            "Garlic",
+            "Soy Sauce",
+            "Vinegar"
+        ]
+    }
+}
+```
+
+**Example error response:**
+
+```json
+{
+    "status": "error",
+    "message": "Invalid food ID. A positive whole number is required."
+}
+```
+
+_Returned with HTTP status `404` when the `food_id` does not exist, or `400` if `{id}` is not a positive whole number._
+
+### 4. Search Foods by Name
+
+**Endpoint:**
+
+```
+GET /api/foods/search/{name}
+```
+
+**Description:** Searches for foods whose name partially matches the given keyword (case-insensitive).
+
+**Required headers:**
+
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Accept: application/json
+```
+
+**Example request:**
+
+```
+GET http://127.0.0.1:8000/api/foods/search/adobo
+```
+
+**Example successful response:**
+
+```json
+{
+    "data": [
+        {
+            "food_id": 1,
+            "food_name": "Adobo",
+            "category_name": "Main Dish",
+            "origin_name": "Philippines",
+            "instructions": "Marinate the chicken or pork in soy sauce, vinegar, garlic, and pepper. Simmer until tender.",
+            "ingredients": [
+                "Bay Leaves",
+                "Chicken",
+                "Garlic",
+                "Soy Sauce",
+                "Vinegar"
+            ]
+        }
+    ]
+}
+```
+
+**Example error response:**
+
+```json
+{
+    "status": "error",
+    "message": "Invalid search name. Enter 1 to 100 characters."
+}
+```
+
+_Returned with HTTP status `400` when `{name}` is empty or longer than 100 characters._
+
+
+### 5. Get All Categories
+
+**Endpoint:**
+
+```
+GET /api/categories
+```
+
+**Description:** Returns all food categories available in the database.
+
+**Required headers:**
+
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Accept: application/json
+```
+
+**Example request:**
+
+```
+GET http://127.0.0.1:8000/api/categories
+```
+
+**Example successful response:**
+
+```json
+{
+    "data": [
+        {
+            "category_id": 1,
+            "category_name": "Main Dish"
+        },
+        {
+            "category_id": 2,
+            "category_name": "Dessert"
+        }
+    ]
+}
+```
+
+**Example error response:**
+
+```json
+{
+    "status": "error",
+    "message": "Unauthorized. Provide a valid Bearer token."
+}
+```
+
+---
+
+### 6. Get All Ingredients
+
+**Endpoint:**
+
+```
+GET /api/ingredients
+```
+
+**Description:** Returns all ingredients stored in the database.
+
+**Required headers:**
+
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Accept: application/json
+```
+
+**Example request:**
+
+```
+GET http://127.0.0.1:8000/api/ingredients
+```
+
+**Example successful response:**
+
+```json
+{
+    "data": [
+        {
+            "ingredient_id": 1,
+            "ingredient_name": "Chicken"
+        },
+        {
+            "ingredient_id": 2,
+            "ingredient_name": "Garlic"
+        }
+    ]
+}
+```
+
+**Example error response:**
+
+```json
+{
+    "status": "error",
+    "message": "Unauthorized. Provide a valid Bearer token."
+}
+```
+
+---
+
+### 7. Add a New Food
+
+**Endpoint:**
+
+```
+POST /api/foods
+```
+
+**Description:** Adds a new food item to the database along with its ingredients. Uses a database transaction so the food and its ingredients are saved together.
+
+**Required headers:**
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Content-Type: application/json
+Accept: application/json
+```
+
+**Example request:**
+
+```
+POST http://127.0.0.1:8000/api/foods
+```
+
+**Example Required JSON body:**
+
+```json
+{
+    "food_name": "Sinigang na Baboy",
+    "category_id": 1,
+    "origin_id": 1,
+    "instructions": "Boil pork with tamarind broth, add vegetables, and simmer until tender.",
+    "ingredient_ids": [1, 3, 5]
+}
+```
+
+**Example successful response:**
+
+```json
+{
+    "status": "success",
+    "message": "Food added successfully."
+}
+```
+
+_Returned with HTTP status `201 Created`._
+
+**Example error response:**
+
+```json
+{
+    "status": "error",
+    "message": "Food name is required and must not exceed 150 characters."
+}
+```
+
+_Returned with HTTP status `400` for validation errors (invalid/missing fields, non-existent category, origin, or ingredient IDs), or `500` if the food could not be saved due to a server/database error._
+
+## HTTP Status Code
+**200 OK**
+Request completed successfully (e.g. successfully fetched foods, categories, or ingredients).
+
+**201 Created**
+A new resource was successfully created (e.g. a new food was added via `POST /api/foods`).
+
+**400 Bad Request**
+The request contains an invalid or missing parameter (e.g. invalid `food_id`, empty search name, or missing required fields in the request body).
+
+**401 Unauthorized**
+The request is missing a valid Bearer token, or the token provided is incorrect.
+
+**404 Not Found**
+The requested resource does not exist (e.g. food ID or category ID not found in the database).
+
+**500 Internal Server Error**
+An unexpected server or database error occurred while processing the request (e.g. failed to save a new food).
 
 ## Testing Evidence
 
