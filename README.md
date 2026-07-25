@@ -562,32 +562,44 @@ markdown
 Include screenshots of successful endpoint requests and JSON responses, invalid or missing token requests, resource-not-found responses, and optional enhancements when applicable.
 
 ### Successful Requests
+Ah, yan nga ang common issue — hindi maganda ang pag-parse ng Markdown pag may space sa loob ng image path kahit tama yung filename. Kailangan mong palitan ang mga space ng %20 (URL encoding) sa loob ng parentheses (), pero panatilihin mo yung normal na filename (may space) sa actual file mo sa folder.
 
-![Public Welcome Route](Screenshots/Public Welcome Route.png)
+Eto yung fixed version:
+
+markdown
+---
+
+## 11. Testing Evidence
+
+Include screenshots of successful endpoint requests and JSON responses, invalid or missing token requests, resource-not-found responses, and optional enhancements when applicable.
+
+### Successful Requests
+
+![Public Welcome Route](Screenshots/Public%20Welcome%20Route.png)
 *Public Welcome Route — `GET /` returns a welcome message without requiring authentication.*
 
-![Get All Foods](Screenshots/Get All Foods.png)
+![Get All Foods](Screenshots/Get%20All%20Foods.png)
 *Get All Foods — `GET /api/foods` returns all foods with their category, origin, and ingredients.*
 
-![Get Food By ID](Screenshots/Get Food By ID.png)
+![Get Food By ID](Screenshots/Get%20Food%20By%20ID.png)
 *Get Food By ID — `GET /api/foods/{id}` returns a single food item and its details.*
 
-![Search Food By Name](Screenshots/Search Food By Name.png)
+![Search Food By Name](Screenshots/Search%20Food%20By%20Name.png)
 *Search Food By Name — `GET /api/foods/search/{name}` returns foods matching the given keyword.*
 
-![Get All Categories](Screenshots/Get All Categories.png)
+![Get All Categories](Screenshots/Get%20All%20Categories.png)
 *Get All Categories — `GET /api/categories` returns all available food categories.*
 
-![Get All Ingredients](Screenshots/Get All Ingredients.png)
+![Get All Ingredients](Screenshots/Get%20All%20Ingredients.png)
 *Get All Ingredients — `GET /api/ingredients` returns all ingredients stored in the database.*
 
-![Add New Food](Screenshots/Add New Food.png)
+![Add New Food](Screenshots/Add%20New%20Food.png)
 *Add New Food — `POST /api/foods` successfully adds a new food along with its ingredients.*
 
-![Invalid Bearer Token](Screenshots/Invalid Bearer Token.png)
+![Invalid Bearer Token](Screenshots/Invalid%20Bearer%20Token.png)
 *Invalid Bearer Token — Request with a missing or incorrect token returns a `401 Unauthorized` response.*
 
-![Input Validation Error](Screenshots/Input Validation Error.png)
+![Input Validation Error](Screenshots/Input%20Validation%20Error.png)
 *Input Validation Error — Request with invalid or missing fields returns a `400 Bad Request` response.*
 
 # Optional API Enhancements
