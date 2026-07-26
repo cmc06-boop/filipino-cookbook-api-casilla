@@ -110,7 +110,7 @@ Start both services using the XAMPP Control Panel.
 
 ### 7. Start the PHP built-in server
 
-Run the following command inside the project folder:
+Run the following command inside the project folder (terminal):
 
 ```bash
 php -S 127.0.0.1:8000 -t public public/index.php
