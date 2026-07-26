@@ -39,8 +39,8 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 - Retrieve food origins
 - Retrieve ingredients
 - Add new food (Protected)
-- Retrieve foods by category (Optional Enhancement)
-- Get the number of foods under each category (Optional Enhancement)
+- Retrieve foods by category
+- Get the number of foods under each category
 - Authenticate request using a token format
 - Return information in JSON format
 
@@ -62,21 +62,29 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 
 ### 1. Clone the repository
 
+```bash
 git clone https://github.com/cmc06-boop/filipino-cookbook-api-casilla.git
+```
 
 ### 2. Open the project folder
 
+```bash
 cd filipino-cookbook-api-casilla
+```
 
 ### 3. Install the dependencies
 
+```bash
 composer install
+```
 
 ### 4. Create the database
 
 Create a database named:
 
+```text
 filipino_cookbook_api
+```
 
 Then import the SQL file included in the repository.
 
@@ -84,11 +92,15 @@ Then import the SQL file included in the repository.
 
 Copy:
 
+```text
 config.example.php
+```
 
 Rename it to:
 
+```text
 config.php
+```
 
 Update the database credentials according to your local environment.
 
@@ -100,17 +112,22 @@ Start both services using the XAMPP Control Panel.
 
 Open:
 
+```text
 http://127.0.0.1:8000/
+```
 
 
 ## Database Setup
 
 ### Database Name
 
+```text
 filipino_cookbook_api
-
+```
 ### SQL File
+```text
 filipino_cookbook_api.sql
+```
 
 ### Main Tables
 
@@ -122,21 +139,28 @@ filipino_cookbook_api.sql
 
 ### Relationship
 
+```
 categories -> foods <- origins 
 fooods -> food_ingredients <- ingredients
+```
 
 ## Base URL
+```text
 http://127.0.0.1:8000/
+```
 
 ## Authentication Instructions
 - All endpoints under `/api` require Bearer token authentication.
 - The API token is stored in the local `config.php` file.
 - To access the secured endpoints, include the following request headers:
 
+```http
 Authorization: Bearer YOUR_ACCESS_TOKEN
-
+```
 - For POST requests, also include:
+```http
 Content-Type: application/json
+```
 
 
 ### Secured Endpoints
@@ -154,14 +178,18 @@ The welcome route `GET /` is publicly accessible.
 
 ### Invalid Authentication Response
 
+```json
 {
     "status": "error",
     "message": "Unauthorized. Provide a valid Bearer token."
 }
+```
 
 HTTP Status Code:
 
+```text
 401 Unauthorized
+```
 
 
 ## Endpoint Documentation
@@ -170,40 +198,53 @@ HTTP Status Code:
 
 **Endpoint:**
 
+```
 GET /
+```
 
 **Description:** Public route that returns a welcome message. Does not require authentication.
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/
+```
 
 **Example successful response:**
 
+```json
 {
     "message": "Welcome to the Filipino Cookbook API",
     "note": "Use a valid bearer token in the Authorization header to access the secured endpoints."
 }
+```
 
 ### 2. Get All Foods
 
 **Endpoint:**
 
+```
 GET /api/foods
+```
 
 **Description:** Returns all Filipino foods stored in the database, including each food's category, origin, and list of ingredients and instructions.
 
 **Required headers:**
 
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Accept: application/json
+```
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/api/foods
+```
 
 **Example successful response:**
 
+```json
 {
     "data": [
         {
@@ -222,33 +263,43 @@ GET http://127.0.0.1:8000/api/foods
         }
     ]
 }
+```
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Unauthorized. Provide a valid Bearer token."
 }
+```
 
 ### 3. Get a Single Food by ID
 
 **Endpoint:**
 
+```
 GET /api/foods/{id}
+```
 
 **Description:** Returns a single food item, including its category, origin, ingredients,and instructions, based on its `food_id`.
 
 **Required headers:**
 
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Accept: application/json
+```
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/api/foods/1
+```
 
 **Example successful response:**
 
+```json
 {
     "data": {
         "food_id": 1,
@@ -265,13 +316,16 @@ GET http://127.0.0.1:8000/api/foods/1
         ]
     }
 }
+```
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Invalid food ID. A positive whole number is required."
 }
+```
 
 _Returned with HTTP status `404` when the `food_id` does not exist, or `400` if `{id}` is not a positive whole number._
 
@@ -279,21 +333,28 @@ _Returned with HTTP status `404` when the `food_id` does not exist, or `400` if 
 
 **Endpoint:**
 
+```
 GET /api/foods/search/{name}
+```
 
 **Description:** Searches for foods whose name partially matches the given keyword (case-insensitive).
 
 **Required headers:**
 
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Accept: application/json
+```
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/api/foods/search/adobo
+```
 
 **Example successful response:**
 
+```json
 {
     "data": [
         {
@@ -312,13 +373,16 @@ GET http://127.0.0.1:8000/api/foods/search/adobo
         }
     ]
 }
+```
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Invalid search name. Enter 1 to 100 characters."
 }
+```
 
 _Returned with HTTP status `400` when `{name}` is empty or longer than 100 characters._
 
@@ -327,21 +391,28 @@ _Returned with HTTP status `400` when `{name}` is empty or longer than 100 chara
 
 **Endpoint:**
 
+```
 GET /api/categories
+```
 
 **Description:** Returns all food categories available in the database.
 
 **Required headers:**
 
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Accept: application/json
+```
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/api/categories
+```
 
 **Example successful response:**
 
+```json
 {
     "data": [
         {
@@ -354,35 +425,45 @@ GET http://127.0.0.1:8000/api/categories
         }
     ]
 }
+```
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Unauthorized. Provide a valid Bearer token."
 }
+```
 
 ---
 
-### 6. Get Foods by Category *(Optional Enhancement)*
+### 6. Get Foods by Category
 
 **Endpoint:**
 
+```
 GET /api/categories/{id}/foods
+```
 
 **Description:** Returns all foods that belong to a selected category, based on the `category_id`.
 
 **Required headers:**
 
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Accept: application/json
+```
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/api/categories/1/foods
+```
 
 **Example successful response:**
 
+```json
 {
     "data": [
         {
@@ -401,37 +482,47 @@ GET http://127.0.0.1:8000/api/categories/1/foods
         }
     ]
 }
+```
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Invalid category ID. A positive whole number is required."
 }
+```
 
 _Returned with HTTP status `404` when the `category_id` does not exist, or `400` if `{id}` is not a positive whole number._
 
 ---
 
-### 7. Get Number of Foods per Category *(Optional Enhancement)*
+### 7. Get Number of Foods per Category
 
 **Endpoint:**
 
+```
 GET /api/categories/food-counts
+```
 
 **Description:** Returns every category along with the total number of foods under each one.
 
 **Required headers:**
 
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Accept: application/json
+```
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/api/categories/food-counts
+```
 
 **Example successful response:**
 
+```json
 {
     "data": [
         {
@@ -446,13 +537,16 @@ GET http://127.0.0.1:8000/api/categories/food-counts
         }
     ]
 }
+```
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Unauthorized. Provide a valid Bearer token."
 }
+```
 
 ---
 
@@ -460,21 +554,28 @@ GET http://127.0.0.1:8000/api/categories/food-counts
 
 **Endpoint:**
 
+```
 GET /api/ingredients
+```
 
 **Description:** Returns all ingredients stored in the database.
 
 **Required headers:**
 
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Accept: application/json
+```
 
 **Example request:**
 
+```
 GET http://127.0.0.1:8000/api/ingredients
+```
 
 **Example successful response:**
 
+```json
 {
     "data": [
         {
@@ -487,13 +588,16 @@ GET http://127.0.0.1:8000/api/ingredients
         }
     ]
 }
+```
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Unauthorized. Provide a valid Bearer token."
 }
+```
 
 ---
 
@@ -501,21 +605,28 @@ GET http://127.0.0.1:8000/api/ingredients
 
 **Endpoint:**
 
+```
 POST /api/foods
+```
 
 **Description:** Adds a new food item to the database along with its ingredients. Uses a database transaction so the food and its ingredients are saved together.
 
 **Required headers:**
+```
 Authorization: Bearer YOUR_ACCESS_TOKEN
 Content-Type: application/json
 Accept: application/json
+```
 
 **Example request:**
 
+```
 POST http://127.0.0.1:8000/api/foods
+```
 
 **Example Required JSON body:**
 
+```json
 {
     "food_name": "Sinigang na Baboy",
     "category_id": 1,
@@ -523,22 +634,27 @@ POST http://127.0.0.1:8000/api/foods
     "instructions": "Boil pork with tamarind broth, add vegetables, and simmer until tender.",
     "ingredient_ids": [1, 3, 5]
 }
+```
 
 **Example successful response:**
 
+```json
 {
     "status": "success",
     "message": "Food added successfully."
 }
+```
 
 _Returned with HTTP status `201 Created`._
 
 **Example error response:**
 
+```json
 {
     "status": "error",
     "message": "Food name is required and must not exceed 150 characters."
 }
+```
 
 _Returned with HTTP status `400` for validation errors (invalid/missing fields, non-existent category, origin, or ingredient IDs), or `500` if the food could not be saved due to a server/database error._
 
@@ -581,11 +697,11 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 
 ![Get All Categories](Screenshots/Get%20All%20Categories.png)
 
-<p align="center"><em>Get Foods by Category — <code>GET /api/categories/{id}/foods</code> returns all foods under a selected category. (Optional Enhancement)</em></p>
+<p align="center"><em>Get Foods by Category — <code>GET /api/categories/{id}/foods</code> returns all foods under a selected category.</em></p>
 
 ![Foods By Category](Screenshots/Foods%20By%20Category.png)
 
-<p align="center"><em>Get Number of Foods per Category — <code>GET /api/categories/food-counts</code> returns each category with its total food count. (Optional Enhancement)</em></p>
+<p align="center"><em>Get Number of Foods per Category — <code>GET /api/categories/food-counts</code> returns each category with its total food count.</em></p>
 
 ![Number of Foods Per Category](Screenshots/Number%20of%20Foods%20Per%20Category.png)
 
