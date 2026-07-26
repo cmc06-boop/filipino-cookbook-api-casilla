@@ -5,7 +5,7 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 
 ### Purpose of API
 - Provide Filipino food information through a API.
-- Allow developers to access food, category, origin, and ingredient data.
+- Allow developers to access food, category, origin, instructions and ingredient data.
 - Demonstrate API development using PHP, Slim Framework, and MySQL.
 
 ### Type of Information Provided
@@ -29,6 +29,7 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 - Return data in JSON format
 - Add a new food using a protected endpoint
 - Retrieve foods under a specific category
+- Authenticate requests using a Bearer token
 - Retrieve the number of foods under each category
 
 
@@ -36,7 +37,6 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 - Retrieve Filipino foods
 - View the details of a specific food
 - Retrieve food categories
-- Retrieve food origins
 - Retrieve ingredients
 - Add new food (Protected)
 - Retrieve foods by category
@@ -108,7 +108,15 @@ Update the database credentials according to your local environment.
 
 Start both services using the XAMPP Control Panel.
 
-### 7. Run the API
+### 7. Start the PHP built-in server
+
+Run the following command inside the project folder:
+
+```bash
+php -S 127.0.0.1:8000 -t public public/index.php
+```
+
+### 8. Run the API
 
 Open:
 
@@ -721,9 +729,6 @@ _Returned with HTTP status `400` for validation errors (invalid/missing fields, 
 
 ![Input Validation Error](Screenshots/Input%20Validation%20Error.png)
 
-<p align="center"><em>Optional Enhancement Validation Error — Request using an invalid or missing category parameter returns a <code>400 Bad Request</code> response.</em></p>
-
-![Validation Error](Screenshots/Validation%20Error.png)
 
 # Optional API Enhancements
 
@@ -784,6 +789,7 @@ The enhancements were implemented to improve the functionality and reliability o
 ![Validation Error](Screenshots/Validation%20Error.png)
 
 ## Developer Information
+
  **Name:** Cherry Lyn M. Casilla
 
  **Course and Section:** BS Information Technology – [4B]
