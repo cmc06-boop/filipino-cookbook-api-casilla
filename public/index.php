@@ -6,6 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Slim\Factory\AppFactory; // para makagawa ng Slim application at responses para makapag send ng http response
 use Slim\Psr7\Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface;
 
 // dito ginawa yung Slim application
 $app = AppFactory::create();
@@ -52,7 +53,7 @@ $jsonResponse = function ($response, array $data, int $status = 200) {
 
 $validApiToken = $apiToken ?? '';
 
-$authMiddleware = function (Request $request, $handler) use ($jsonResponse, $validApiToken) {
+$authMiddleware = function (Request $request, RequestHandlerInterface $handler) use ($jsonResponse, $validApiToken): Response {
     $authorization = $request->getHeaderLine('Authorization');
 
     if (!preg_match('/^Bearer\s+(.+)$/i', $authorization, $matches)
@@ -72,7 +73,7 @@ $authMiddleware = function (Request $request, $handler) use ($jsonResponse, $val
 $app->get('/', function ($request, $response) use ($jsonResponse) {
     return $jsonResponse($response, [
         'message' => 'Welcome to the Filipino Cookbook API',
-        'note' => 'Use the public /api endpoints to browse foods and categories.',
+        'note' => 'Use a valid bearer token in the Authorization header to access the secured endpoints.',
     ]);
 });
 // helper function para kunin yung lahat ng ingredients ng isang pagkain.
@@ -151,44 +152,43 @@ function fetchFoodsByCategory(PDO $pdo, int $categoryId): array
     return $foods;
 }
 
-// 9: GET /api/categories/{id}/foods
-// Get all foods under a specific category.
-$app->get('/api/categories/{id}/foods', function (Request $request, Response $response, array $args): Response {
-    // Kinukuha ang category ID mula sa URL at kino-convert ito sa integer.
-    $categoryId = isset($args['id']) ? (int) $args['id'] : 0;
-
-    // INPUT VALIDATION: Dapat positive number ang category ID. | Kapag zero, negative, o invalid ang value, magbabalik ng 400 Bad Request.
-    if ($categoryId <= 0) {
-        return jsonResponse($response, 400, [
-            'status' => 'error',
-            'message' => 'Invalid category_id.'
-        ]);
-    }
-
-    // Kinukuha ang PDO connection gamit ang helper function.
-    $pdo = getPdo();
-
-    // Chine-check muna kung talagang umiiral ang category sa database.
-    // Prepared statement ang ginagamit para makatulong laban sa SQL injection.
-    $categoryStmt = $pdo->prepare('SELECT category_id FROM categories WHERE category_id = ?');
-    $categoryStmt->execute([$categoryId]);
-
-    // Kapag walang category na nakita, magbabalik ng 404 Not Found.
-    if (!$categoryStmt->fetch()) {
-        return jsonResponse($response, 404, [
-            'status' => 'error',
-            'message' => 'Category not found.'
-        ]);
-    }
-
-    // Kapag valid at existing ang category, kinukuha at ibinabalik ang lahat ng foods nito.
-    return jsonResponse($response, 200, [
-        'data' => fetchFoodsByCategory($pdo, $categoryId)
-    ]);
-});
-
 // Lahat ng secured endpoints ket piangsamasama na sa iisang group para isang beses lang ilagay yung authentication middleware.
 $app->group('/api', function ($group) use ($pdo, $jsonResponse, $getFoodIngredients, $attachIngredients) {
+    // 9: GET /api/categories/{id}/foods
+    // Get all foods under a specific category.
+    $group->get('/categories/{id}/foods', function (Request $request, Response $response, array $args): Response {
+        // Kinukuha ang category ID mula sa URL at kino-convert ito sa integer.
+        $categoryId = isset($args['id']) ? (int) $args['id'] : 0;
+
+        // INPUT VALIDATION: Dapat positive number ang category ID. | Kapag zero, negative, o invalid ang value, magbabalik ng 400 Bad Request.
+        if ($categoryId <= 0) {
+            return jsonResponse($response, 400, [
+                'status' => 'error',
+                'message' => 'Invalid category_id.'
+            ]);
+        }
+
+        // Kinukuha ang PDO connection gamit ang helper function.
+        $pdo = getPdo();
+
+        // Chine-check muna kung talagang umiiral ang category sa database.
+        // Prepared statement ang ginagamit para makatulong laban sa SQL injection.
+        $categoryStmt = $pdo->prepare('SELECT category_id FROM categories WHERE category_id = ?');
+        $categoryStmt->execute([$categoryId]);
+
+        // Kapag walang category na nakita, magbabalik ng 404 Not Found.
+        if (!$categoryStmt->fetch()) {
+            return jsonResponse($response, 404, [
+                'status' => 'error',
+                'message' => 'Category not found.'
+            ]);
+        }
+
+        // Kapag valid at existing ang category, kinukuha at ibinabalik ang lahat ng foods nito.
+        return jsonResponse($response, 200, [
+            'data' => fetchFoodsByCategory($pdo, $categoryId)
+        ]);
+    });
     // 5: GET /api/categories: Kinukuha lahat ng categories mula sa database
     $group->get('/categories', function ($request, $response) use ($pdo, $jsonResponse) {
         $stmt = $pdo->query('SELECT category_id, category_name FROM categories ORDER BY category_name');
@@ -480,8 +480,7 @@ $app->group('/api', function ($group) use ($pdo, $jsonResponse, $getFoodIngredie
                 'message' => 'Failed to add food.',
             ], 500);
         }
-    })->add($authMiddleware);
-
-});
+    });
+})->add($authMiddleware);
 
 $app->run();
