@@ -129,11 +129,13 @@ http://127.0.0.1:8000/
 
 ### Database Name
 
-Create a new database named 
+Create a new database named: 
 ```text
 filipino_cookbook_api_casilla
 ```
 ### SQL File
+
+import the:
 ```text
 filipino_cookbook_api.sql
 ```
