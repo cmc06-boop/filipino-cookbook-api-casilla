@@ -157,7 +157,7 @@ fooods -> food_ingredients <- ingredients
 
 ## Base URL
 ```text
-http://127.0.0.1:8000/api/foods
+http://127.0.0.1:8000/
 ```
 
 ## Authentication Instructions
