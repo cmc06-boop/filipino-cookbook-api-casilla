@@ -131,7 +131,7 @@ http://127.0.0.1:8000/
 
 Create a new database named: 
 ```text
-filipino_cookbook_api_casilla
+filipino_cookbook_api_surname
 ```
 ### SQL File
 
