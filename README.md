@@ -130,7 +130,7 @@ http://127.0.0.1:8000/
 ### Database Name
 
 ```text
-filipino_cookbook_api
+filipino_cookbook_api_casilla
 ```
 ### SQL File
 ```text
