@@ -83,7 +83,7 @@ composer install
 Create a database named:
 
 ```text
-filipino_cookbook_api
+filipino_cookbook_api_surname
 ```
 
 Then import the SQL file included in the repository.
