@@ -113,7 +113,7 @@ Start both services using the XAMPP Control Panel.
 Run the following command inside the project folder (terminal):
 
 ```bash
-php -S 127.0.0.1:8000 -t public public/index.php
+php -S 127.0.0.1:8080 -t public
 ```
 
 ### 8. Run the API
@@ -121,7 +121,7 @@ php -S 127.0.0.1:8000 -t public public/index.php
 Open:
 
 ```text
-http://127.0.0.1:8000/
+http://127.0.0.1:8080/api/foods
 ```
 
 
@@ -157,7 +157,7 @@ fooods -> food_ingredients <- ingredients
 
 ## Base URL
 ```text
-http://127.0.0.1:8000/
+http://127.0.0.1:8000/api/foods
 ```
 
 ## Authentication Instructions
@@ -218,7 +218,7 @@ GET /
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/
+GET http://127.0.0.1:8080/
 ```
 
 **Example successful response:**
@@ -250,7 +250,7 @@ Accept: application/json
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/api/foods
+GET http://127.0.0.1:8080/api/foods
 ```
 
 **Example successful response:**
@@ -305,7 +305,7 @@ Accept: application/json
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/api/foods/1
+GET http://127.0.0.1:8080/api/foods/1
 ```
 
 **Example successful response:**
@@ -360,7 +360,7 @@ Accept: application/json
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/api/foods/search/adobo
+GET http://127.0.0.1:8080/api/foods/search/adobo
 ```
 
 **Example successful response:**
@@ -418,7 +418,7 @@ Accept: application/json
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/api/categories
+GET http://127.0.0.1:8080/api/categories
 ```
 
 **Example successful response:**
@@ -469,7 +469,7 @@ Accept: application/json
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/api/categories/1/foods
+GET http://127.0.0.1:8080/api/categories/1/foods
 ```
 
 **Example successful response:**
@@ -528,7 +528,7 @@ Accept: application/json
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/api/categories/food-counts
+GET http://127.0.0.1:8080/api/categories/food-counts
 ```
 
 **Example successful response:**
@@ -581,7 +581,7 @@ Accept: application/json
 **Example request:**
 
 ```
-GET http://127.0.0.1:8000/api/ingredients
+GET http://127.0.0.1:8080/api/ingredients
 ```
 
 **Example successful response:**
@@ -632,7 +632,7 @@ Accept: application/json
 **Example request:**
 
 ```
-POST http://127.0.0.1:8000/api/foods
+POST http://127.0.0.1:8080/api/foods
 ```
 
 **Example Required JSON body:**
