@@ -135,7 +135,7 @@ filipino_cookbook_api_casilla
 ```
 ### SQL File
 
-import the:
+Import the:
 ```text
 filipino_cookbook_api.sql
 ```
