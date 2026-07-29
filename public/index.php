@@ -20,6 +20,35 @@ $basePath = strpos($requestPath, $scriptName) === 0
 $app->setBasePath($basePath);
 
 //Mga "filter" bago magprocess yung request
+$allowedClientOrigin = 'http://127.0.0.1:8081';
+
+$corsMiddleware = function (Request $request, RequestHandlerInterface $handler) use ($allowedClientOrigin): Response {
+    $origin = $request->getHeaderLine('Origin');
+    $isAllowedOrigin = $origin !== '' && ($origin === $allowedClientOrigin || $origin === $allowedClientOrigin . '/');
+
+    if ($request->getMethod() === 'OPTIONS') {
+        $response = new Response();
+        return $response
+            ->withStatus(204)
+            ->withHeader('Access-Control-Allow-Origin', $allowedClientOrigin)
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+            ->withHeader('Access-Control-Max-Age', '86400');
+    }
+
+    $response = $handler->handle($request);
+
+    if ($isAllowedOrigin) {
+        return $response
+            ->withHeader('Access-Control-Allow-Origin', $origin)
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    }
+
+    return $response;
+};
+
+$app->add($corsMiddleware);
 $app->addBodyParsingMiddleware();//ginagamit para mabasa ang JSON request body lalo na sa POST Requests.
 $app->addRoutingMiddleware();//naghahanap kung anong end point ang tatawagin
 $app->addErrorMiddleware(false, true, true); // hindi ipinapakita ang detalyadong server error sa client.
