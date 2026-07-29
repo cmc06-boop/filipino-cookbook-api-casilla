@@ -48,9 +48,9 @@ $corsMiddleware = function (Request $request, RequestHandlerInterface $handler) 
     return $response;
 };
 
-$app->add($corsMiddleware);
 $app->addBodyParsingMiddleware();//ginagamit para mabasa ang JSON request body lalo na sa POST Requests.
 $app->addRoutingMiddleware();//naghahanap kung anong end point ang tatawagin
+$app->add($corsMiddleware);
 $app->addErrorMiddleware(false, true, true); // hindi ipinapakita ang detalyadong server error sa client.
 
 // DATABASE CONNECTION (PDO) PHP Data Objects
