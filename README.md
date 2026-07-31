@@ -20,29 +20,32 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 - Developers
 - Client applications that consume APIs
 
-### Main Functions of The API
-- Retrieve all Filipino foods
-- Retrieve a details of a specific food
-- Search foods by name
-- Retrieve categories
-- Retrieve ingredients
-- Return data in JSON format
-- Add a new food using a protected endpoint
+### Main Functions of the API
+- Retrieve all Filipino foods with category, origin, ingredients, and cooking instructions
+- Retrieve a single food by ID with full details
+- Search foods by name using partial, case-insensitive matching
+- Retrieve all food categories
+- Retrieve all ingredients
 - Retrieve foods under a specific category
-- Authenticate requests using a Bearer token
-- Retrieve the number of foods under each category
+- Get the number of foods under each category
+- Add a new food record with linked ingredients through a protected endpoint
+- Authenticate secured requests using a Bearer token
+- Return all API responses in JSON format
 
 
 ## Features
-- Retrieve Filipino foods
-- View the details of a specific food
-- Retrieve food categories
-- Retrieve ingredients
-- Add new food (Protected)
-- Retrieve foods by category
-- Get the number of foods under each category
-- Authenticate request using a token format
-- Return information in JSON format
+- List all foods with ingredients, category, origin, and instructions
+- Get a single food by ID with full ingredient list
+- Search foods by name (case-insensitive, partial match)
+- List all food categories
+- List all ingredients
+- Get foods by category ID
+- Get food count per category
+- Add a new food record with input validation and database transaction
+- Bearer token authentication for all `/api` routes
+- Public welcome route at `GET /`
+- CORS support for local client applications
+- Clear JSON error messages for invalid or unauthorized requests
 
 
 ## Technologies Used
@@ -60,69 +63,100 @@ The Filipino Cookbook API is a API developed using PHP, Slim Framework, and MySQ
 
 ## Installation Instructions
 
+Follow these steps to install and run the API locally.
+
 ### 1. Clone the repository
 
 ```bash
 git clone https://github.com/cmc06-boop/filipino-cookbook-api-casilla.git
-```
-
-### 2. Open the project folder
-
-```bash
 cd filipino-cookbook-api-casilla
 ```
 
-### 3. Install the dependencies
+### 2. Install dependencies
+
+If Composer is installed:
 
 ```bash
 composer install
 ```
 
-### 4. Create the database
+If Composer is not installed, download and install it first from https://getcomposer.org.
 
-Create a database named:
+### 3. Create local configuration
 
-```text
-filipino_cookbook_api_surname
+Copy the example config file, then open `config.php` in a text editor.
+
+Windows:
+
+```powershell
+copy config.example.php config.php
 ```
 
-Then import the SQL file included in the repository.
+Linux / macOS:
 
-### 5. Configure the database
-
-Copy:
-
-```text
-config.example.php
+```bash
+cp config.example.php config.php
 ```
 
-Rename it to:
+Update `config.php` with your local database credentials and API token. Example:
 
-```text
-config.php
+```php
+$host = 'localhost';
+$dbname = 'filipino_cookbook_api_surname';
+$username = 'root';
+$password = '';
+$apiToken = 'YOUR_API_TOKEN_HERE';
 ```
 
-Update the database credentials according to your local environment.
+Use the same token value in your `Authorization` header when testing secured endpoints.
 
-### 6. Start Apache and MySQL
+### 4. Create and import the database
 
-Start both services using the XAMPP Control Panel.
+Create the database and import the SQL file using either phpMyAdmin or the MySQL command-line client.
 
-### 7. Start the PHP built-in server
+#### Option 1: Use phpMyAdmin
 
-Run the following command inside the project folder (terminal):
+- Open phpMyAdmin from the XAMPP Control Panel.
+- Create a new database named `filipino_cookbook_api_surname`.
+- Select the new database.
+- Open the **Import** tab.
+- Upload the `filipino_cookbook_api.sql` file from the project folder.
+- Run the import.
+
+#### Option 2: Use the MySQL command line
+
+Create the database:
+
+```sql
+CREATE DATABASE filipino_cookbook_api_surname;
+```
+
+Then run this command from the project folder:
+
+```bash
+mysql -u YOUR_DB_USER -p filipino_cookbook_api_surname < filipino_cookbook_api.sql
+```
+
+### 5. Start Apache and MySQL
+
+Start both services using the XAMPP Control Panel before running the API.
+
+### 6. Start the API server
+
+From the project root directory, run:
 
 ```bash
 php -S 127.0.0.1:8080 -t public
 ```
 
-### 8. Run the API
+### 7. Confirm the API is running
 
-Open:
+Open in a browser, Thunder Client, or Postman:
 
-```text
-http://127.0.0.1:8080/api/foods
-```
+- `http://127.0.0.1:8080/` — public welcome route (no token required)
+- `http://127.0.0.1:8080/api/foods` — secured endpoint (requires Bearer token)
+
+You should receive a JSON response from both routes.
 
 
 ## Database Setup
@@ -157,7 +191,7 @@ fooods -> food_ingredients <- ingredients
 
 ## Base URL
 ```text
-http://127.0.0.1:8000/
+http://127.0.0.1:8080/
 ```
 
 ## Authentication Instructions
@@ -793,12 +827,8 @@ The enhancements were implemented to improve the functionality and reliability o
 
 ## Developer Information
 
- **Name:** Cherry Lyn M. Casilla
-
- **Course and Section:** BS Information Technology – [4B]
-
- **GitHub Username:** cmc06-boop
-
- **Repository:** https://github.com/cmc06-boop/filipino-cookbook-api-casilla
-
- **Date Completed:** July, 2026
+- **Student Name:** Cherry Lyn M. Casilla
+- **Course and Section:** BS Information Technology – 4B
+- **GitHub Username:** cmc06-boop
+- **Repository Link:** https://github.com/cmc06-boop/filipino-cookbook-api-casilla
+- **Date Completed:** July,2026
